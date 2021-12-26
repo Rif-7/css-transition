@@ -1,4 +1,5 @@
 const imageContainer = document.querySelector(".image-container");
+const circleContainer = document.querySelector(".circle-container");
 const noOfPics = 5;
 const leftBtn = document.querySelector(".left");
 const rightBtn = document.querySelector(".right");
@@ -11,6 +12,16 @@ for (let i = 0; i < noOfPics; i++) {
   img.setAttribute("data-index", i);
   img.style.zIndex = i;
   imageContainer.appendChild(img);
+
+  const circle = document.createElement("div");
+  circle.classList.add("circle");
+  circle.setAttribute("data-index", i);
+  circle.addEventListener("click", () => {
+    changeDisplayPic(i);
+    clearInterval(timeInterval);
+    timeInterval = setInterval(autoChanger, 5000);
+  });
+  circleContainer.appendChild(circle);
 }
 
 function changeDisplayPic(dpIndex) {
@@ -20,11 +31,18 @@ function changeDisplayPic(dpIndex) {
     dpIndex = noOfPics - 1;
   }
 
+  // removing transition from previously selected image and it's circle
   document
     .querySelector(`.image[data-index='${currentPicNo}']`)
-    .classList.toggle("image-transitioned");
+    .classList.remove("image-transitioned");
+  document
+    .querySelector(`.circle[data-index='${currentPicNo}']`)
+    .classList.remove("circle-transitioned");
+
   const image = document.querySelector(`.image[data-index='${dpIndex}']`);
-  image.classList.toggle("image-transitioned");
+  const circle = document.querySelector(`.circle[data-index='${dpIndex}']`);
+  image.classList.add("image-transitioned");
+  circle.classList.add("circle-transitioned");
   currentPicNo = dpIndex;
 }
 
@@ -44,8 +62,6 @@ leftBtn.addEventListener("click", () => {
   timeInterval = setInterval(autoChanger, 5000);
 });
 
-document
-  .querySelector(`.image[data-index='${currentPicNo}']`)
-  .classList.toggle("image-transitioned");
+changeDisplayPic(0);
 
 let timeInterval = setInterval(autoChanger, 5000);
