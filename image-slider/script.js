@@ -1,5 +1,5 @@
 const imageContainer = document.querySelector(".image-container");
-const noOfPics = 3;
+const noOfPics = 5;
 const leftBtn = document.querySelector(".left");
 const rightBtn = document.querySelector(".right");
 let currentPicNo = 0;
