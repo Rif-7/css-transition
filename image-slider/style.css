@@ -13,6 +13,7 @@
     padding: 6px 12px;
     border-radius: 6px;
     transition: 100ms;
+    user-select: none;
 }
 
 .left:hover, .right:hover {
@@ -44,7 +45,7 @@
     opacity: 0;
     position: absolute;
     visibility: hidden;
-    transform: translate(0%, -20%);
+    transform: translate(0%, -30%);
 }
 
 .image-transitioned  {

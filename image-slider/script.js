@@ -7,7 +7,7 @@ let currentPicNo = 0;
 for (let i = 0; i < noOfPics; i++) {
   const img = new Image();
   img.src = `./imgs/pic${i}.jpg`;
-  img.classList.add("image", `image-no${i}`);
+  img.classList.add("image");
   img.setAttribute("data-index", i);
   img.style.zIndex = i;
   imageContainer.appendChild(img);
@@ -21,9 +21,9 @@ function changeDisplayPic(dpIndex) {
   }
 
   document
-    .querySelector(`.image-no${currentPicNo}`)
+    .querySelector(`.image[data-index='${currentPicNo}']`)
     .classList.toggle("image-transitioned");
-  const image = document.querySelector(`.image-no${dpIndex}`);
+  const image = document.querySelector(`.image[data-index='${dpIndex}']`);
   image.classList.toggle("image-transitioned");
   currentPicNo = dpIndex;
 }
@@ -34,14 +34,18 @@ function autoChanger() {
 
 rightBtn.addEventListener("click", () => {
   changeDisplayPic(currentPicNo + 1);
+  clearInterval(timeInterval);
+  timeInterval = setInterval(autoChanger, 5000);
 });
 
 leftBtn.addEventListener("click", () => {
   changeDisplayPic(currentPicNo - 1);
+  clearInterval(timeInterval);
+  timeInterval = setInterval(autoChanger, 5000);
 });
 
 document
-  .querySelector(`.image-no${currentPicNo}`)
+  .querySelector(`.image[data-index='${currentPicNo}']`)
   .classList.toggle("image-transitioned");
 
-setInterval(autoChanger, 5000);
+let timeInterval = setInterval(autoChanger, 5000);
