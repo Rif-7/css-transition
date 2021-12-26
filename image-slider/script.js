@@ -25,6 +25,8 @@ for (let i = 0; i < noOfPics; i++) {
 }
 
 function changeDisplayPic(dpIndex) {
+  // setting index to first if it is past the last pic
+  // or setting it to last if it is behind the first pic
   if (dpIndex >= noOfPics) {
     dpIndex = 0;
   } else if (dpIndex < 0) {
