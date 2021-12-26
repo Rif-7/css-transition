@@ -1,0 +1,30 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.menu {
+    display: flex;
+    gap: 4px;
+    overflow: auto;
+    background-color: white;
+}
+
+.item {
+    font-size: 18px;
+    font-weight: 500;
+    color:#707070;
+    padding: 3px 6px;
+    width: auto;
+    transition: all 50ms;
+}
+
+.selected {
+    color: black;
+    transform: scale(105%);
+    border-bottom: 3px solid black;
+}
+
+
+.menu::-webkit-scrollbar {
+    color: white;
+}
