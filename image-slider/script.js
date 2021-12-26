@@ -1,4 +1,3 @@
-const imgs = [];
 const imageContainer = document.querySelector(".image-container");
 const noOfPics = 3;
 const leftBtn = document.querySelector(".left");
@@ -8,8 +7,10 @@ let currentPicNo = 0;
 for (let i = 0; i < noOfPics; i++) {
   const img = new Image();
   img.src = `./imgs/pic${i}.jpg`;
-  img.classList.add("image");
-  imgs.push(img);
+  img.classList.add("image", `image-no${i}`);
+  img.setAttribute("data-index", i);
+  img.style.zIndex = i;
+  imageContainer.appendChild(img);
 }
 
 function changeDisplayPic(dpIndex) {
@@ -19,21 +20,28 @@ function changeDisplayPic(dpIndex) {
     dpIndex = noOfPics - 1;
   }
 
-  imageContainer.innerHTML = "";
-  imageContainer.append(imgs[dpIndex]);
+  document
+    .querySelector(`.image-no${currentPicNo}`)
+    .classList.toggle("image-transitioned");
+  const image = document.querySelector(`.image-no${dpIndex}`);
+  image.classList.toggle("image-transitioned");
   currentPicNo = dpIndex;
 }
 
-function displayController() {
-  return;
+function autoChanger() {
+  changeDisplayPic(currentPicNo + 1);
 }
 
 rightBtn.addEventListener("click", () => {
-  changeDisplayPic(++currentPicNo);
+  changeDisplayPic(currentPicNo + 1);
 });
 
 leftBtn.addEventListener("click", () => {
-  changeDisplayPic(--currentPicNo);
+  changeDisplayPic(currentPicNo - 1);
 });
 
-imageContainer.append(imgs[currentPicNo]);
+document
+  .querySelector(`.image-no${currentPicNo}`)
+  .classList.toggle("image-transitioned");
+
+setInterval(autoChanger, 5000);
